@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kenya Universities Students Organisation </title>
+  <style>
+    /* Exact fonts and minimal default browser styles from the screenshot */
+    body {
+      font-family: serif;
+      padding: 15px;
+      margin: 0;
+      color: #000;
+      line-height: 1.4;
+      background-color: #fff;
+    }
+    h1 {
+      font-size: 28px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+    h2 {
+      font-size: 26px;
+      margin-top: 25px;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+    p {
+      font-size: 15px;
+      margin: 10px 0;
+    }
+    .bold-text {
+      font-weight: bold;
+    }
+    .about-header {
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 15px;
+      margin-bottom: 10px;
+    }
+    details {
+      margin-bottom: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 15px;
+    }
+    details summary {
+      list-style: none; /* Hide default arrows */
+    }
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+    /* Replicating the custom triangle markers from your design */
+    details summary::before {
+      content: "▶ ";
+      font-size: 12px;
+      margin-right: 5px;
+    }
+    details[open] summary::before {
+      content: "▼ ";
+    }
+    .details-content {
+      font-weight: normal;
+      padding-left: 15px;
+      margin-top: 5px;
+    }
+    
+    /* Pixel-perfect Form Layout */
+    form {
+      margin-top: 15px;
+    }
+    .field-label {
+      font-size: 15px;
+      margin: 12px 0 3px 0;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    textarea {
+      font-family: monospace; /* Matches the narrow styled input font */
+      font-size: 13px;
+      padding: 3px 5px;
+      border: 1px solid #767676;
+      border-radius: 2px;
+      width: 210px;
+      box-sizing: border-box;
+    }
+    textarea {
+      width: 250px;
+      height: 100px;
+      resize: vertical;
+    }
+    select {
+      width: 100px;
+    }
+    
+    /* Buttons Container aligned flat */
+    .button-group {
+      margin-top: 15px;
+      display: flex;
+      gap: 5px;
+    }
+    button {
+      font-family: monospace;
+      font-size: 12px;
+      padding: 2px 6px;
+      background-color: #f0f0f0;
+      border: 1px solid #767676;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+    button:active {
+      background-color: #e0e0e0;
+    }
+    
+    /* Footer elements */
+    footer {
+      margin-top: 30px;
+      font-size: 14px;
+      border-top: 1px solid #eee;
+      padding-top: 15px;
+    }
+    footer a {
+      color: #0000ee;
+      text-decoration: underline;
+      display: block;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Kenya Universities Students</h1>
+  
+  <p>Welcome to <span class="bold-text">Kenya Universities Students Organisation</span> you... if you're looking for studying tips📒, events updates🥳, opportuni... you're in the right spot. Explore more, get involved and make the mo...</p>
+
+  <div class="about-header">About KUSO⏳</div>
+
+  <details>
+    <summary>What is KUSO?</summary>
+    <div class="details-content">
+      Kenya Universities Students Organisation (KUSO) represents student interests across Kenyan higher education institutions.
+    </div>
+  </details>
+
+  <details>
+    <summary>Why joining KUSO?</summary>
+    <div class="details-content">
+      Gain networking access, leadership training, academic resources, and community event updates.
+    </div>
+  </details>
+
+  <h2>Student's Form</h2>
+
+  <!-- The Working backend form handler structure -->
+  <form id="studentForm">
+    <!-- Paste your unique Web3Forms API token in the value property below -->
+    <input type="hidden" name="access_key" value="e74eb049-7648-47bf-8385-a3c953c500ae">
+
+    <div class="field-label">Full Name</div>
+    <input type="text" name="full_name" placeholder="Enter full name" required>
+
+    <div class="field-label">Email</div>
+    <input type="email" name="email" placeholder="Enter email address" required>
+
+    <div class="field-label">Safaricom number</div>
+    <input type="tel" name="safaricom_number" placeholder="Saf Number" required>
+
+    <div class="field-label">Id Number</div>
+    <input type="text" name="id_number" placeholder="Id Number" required>
+
+    <div class="field-label">Year of Study</div>
+    <select name="year_of_study">
+      <option value="First Year">First Year</option>
+      <option value="Second Year">Second Year</option>
+      <option value="Third Year">Third Year</option>
+      <option value="Fourth Year">Fourth Year</option>
+    </select>
+
+    <div class="field-label">Message</div>
+    <textarea name="message" placeholder="Enter message" required></textarea>
+
+    <div class="button-group">
+      <button type="button" onclick="document.getElementById('studentForm').reset();">Cancel</button>
+      <button type="submit" id="submitBtn">Send message</button>
+    </div>
+  </form>
+
+  <footer>
+    © 2024-2026 Kenya Universities Students Organisation
+    <a href="https://whatsapp.com..." target="_blank">WhatsApp Channel</a>
+  </footer>
+
+  <!-- Invisible Script to route form entry direct to your personal mail -->
+  <script>
+    document.getElementById('studentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.innerText = "Sending...";
+      submitBtn.disabled = true;
+
+      const formData = new FormData(this);
+      const object = Object.fromEntries(formData);
+      const json = JSON.stringify(object);
+
+      fetch('https://web3forms.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: json
+      })
+      .then(async (response) => {
+        let res = await response.json();
+        if (response.status === 200) {
+          alert("Your application message has been delivered successfully!");
+          document.getElementById('studentForm').reset();
+        } else {
+          alert("Submission error: " + res.message);
+        }
+      })
+      .catch(error => {
+        alert("Network error. Please try again later.");
+      })
+      .then(() => {
+        submitBtn.innerText = "Send message";
+        submitBtn.disabled = false;
+      });
+    });
+  </script>
+
+</body>
+</html>
