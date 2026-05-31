@@ -196,35 +196,31 @@
   <!-- Invisible Script to route form entry direct to your personal mail -->
   <script>
     document.getElementById('studentForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+      e.preventDefault(); // Stop page from redirecting
       
       const submitBtn = document.getElementById('submitBtn');
       submitBtn.innerText = "Sending...";
       submitBtn.disabled = true;
 
+      // FIX: Use native FormData submission to prevent CORS network errors
       const formData = new FormData(this);
-      const object = Object.fromEntries(formData);
-      const json = JSON.stringify(object);
 
-      fetch('https://web3forms.com', {
+      fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: json
+        body: formData // Sends directly as form-data instead of JSON
       })
       .then(async (response) => {
-        let res = await response.json();
         if (response.status === 200) {
           alert("Your application message has been delivered successfully!");
           document.getElementById('studentForm').reset();
         } else {
-          alert("Submission error: " + res.message);
+          const res = await response.json();
+          alert("Submission error: " + (res.message || "Invalid Status"));
         }
       })
       .catch(error => {
-        alert("Network error. Please try again later.");
+        console.error(error);
+        alert("Network error. Please make sure your Web3Forms access key is correct.");
       })
       .then(() => {
         submitBtn.innerText = "Send message";
@@ -232,6 +228,7 @@
       });
     });
   </script>
+>
 
 </body>
 </html>
